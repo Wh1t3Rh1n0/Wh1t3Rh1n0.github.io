@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Introducing WoNDeR-List</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+    <link rel="stylesheet" href="https://wh1t3rh1n0.github.io/css/code-blocks.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://wh1t3rh1n0.github.io/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Wh1t3Rh1n0">
+
+  
+  <meta name="generator" content="Hugo 0.40.1" />
+
+  
+  
+
+  
+  
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://wh1t3rh1n0.github.io/">Wh1t3Rh1n0</a></h1>
+    <h2>I will find a way, or I will make one.</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://wh1t3rh1n0.github.io/">» Blog</option>
+      
+        <option value="https://www.github.com/Wh1t3Rh1n0">» Github</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://wh1t3rh1n0.github.io/" title="Blog">Blog</a></li>
+    
+  
+    
+      <li><a href="https://www.github.com/Wh1t3Rh1n0" title="Github"  target="_blank" >Github</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://wh1t3rh1n0.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.google.com/search" method="get" target="_blank">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:https://wh1t3rh1n0.github.io/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Jun 16, 2014
+    
+    
+
+    
+    
+      - <a class="label" href="https://wh1t3rh1n0.github.io/categories/wireless/">wireless </a>
+    
+  </p>
+  <h1 class="entry-title">
+     Introducing WoNDeR-List 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p><strong>TLDR:</strong> Wordlist of Netgear default WPA keys. Download link is at the bottom.</p>
+
+<h2 id="what-is-wonder-list">What is WoNDeR-List?</h2>
+
+<p>WoNDeR-List is the wordlist I created to crack the default WPA keys of several models of Netgear wireless routers.</p>
+
+<h2 id="how-does-it-work">How does it work?</h2>
+
+<p>Some Netgear WNDR series routers (including the N900, N750, and N600) come with a factory-set default WPA key in the form of: adjective<strong>noun</strong>###. For example, quiet<strong>unicorn</strong>604 (bold added for clarity). After seeing a few of these I was able to make a few assumptions:</p>
+
+<ul>
+<li>There is a finite set of adjectives they used to generate these passwords.</li>
+<li>There is also a finite set of nouns used to generate these passwords.</li>
+<li>The words all seem to be easy enough to spell and pronounce, especially since these routers are sold in countries where the English is not the primary language.</li>
+<li>Given any combination of noun and adjective, there are only 1,000 passwords that can be made from adding three digits to the end.</li>
+</ul>
+
+<h2 id="how-was-wonder-list-created">How was WoNDeR-List created?</h2>
+
+<p>My goal was to uncover the actual lists of adjectives and nouns Netgear used to generate the default passwords. It&rsquo;s not enough for me to just download a million adjectives and a million nouns and call the job done. For one thing, my computer isn&rsquo;t fast enough to go through a wordlist of that size in a reasonable amount of time. My plan was to make an exact duplicate (or close to it) of the wordlists that Netgear uses, so I can (1) reduce the amount of time it takes to go through the entire list to as little as possible and (2) guarantee with 100% accuracy that if a default password is is use, it will be recovered by my wordlist.</p>
+
+<p>So I put myself in the shoes of Mr. Netgear employee. I imagine myself working at Netgear when one day my boss comes to me and says, &ldquo;make me a list of 2,000 English adjectives and 2,000 English nouns.&rdquo; So, being a good employee - not lazy, but not wanting to waste his company&rsquo;s time typing those lists out by hand - what am I going to do? I&rsquo;m going to find those lists online and download them. I figured the person that made those lists probably compiled one or two lists from the Internet, ran them through sort and greg to weed out duplicates or words that were too long or too short, and turned them in to the boss. So to start, I did the same thing.</p>
+
+<p>I already had a small set of known words that I found on a forum post <a href="http://forum.hashkiller.co.uk/topic-view.aspx?t=2715&amp;m=end" target="_blank">here</a>. The problem I had was that every time I found what looked like a good set of words (the 2,000 most common nouns in the English language for instance), words that I <strong>knew</strong> were in the list would be missing. In particular, the word &ldquo;coconut&rdquo; was missing from many of the noun lists I found. And when I did find &ldquo;coconut&rdquo;, other words like &ldquo;banana&rdquo; would be missing.</p>
+
+<p>That lead me to my next idea. Maybe the large list of nouns was actually a combination of several small lists. For instance, maybe it was 10 (or 100) nouns starting with each letter of the alphabet. Or maybe it was 10 nouns from each of several categories: fruits, colors, animals, etc. Given the information I had, those were pretty good guesses, but really, there was no way to tell. I had such a small set of words I had positively identified as being in the Netgear lists. So I came up with plan B.</p>
+
+<p>I needed a larger set of <strong>known</strong> words to work from - words I could prove were in the Netgear lists. Then maybe I could identify any patterns and figure out exactly how the list was generated. But to do that, I needed access to more default passwords. I thought, &ldquo;if only there was some way I could get lots of people on the Internet to take pictures of their routers and send them to me.&rdquo; (The passwords are printed on stickers on the backs of the routers, after all.) Then, after a couple Google searches, I had an epiphany. People on the Internet already <strong>are</strong> taking pictures of their routers! And they&rsquo;re putting them on eBay!</p>
+
+<p>I thought about all the times I sold something on eBay, and all the close-up shots I took from every angle, showing that whatever I was selling was exactly as I said it was. How ironic that those same close-up shots from every angle could be the key to deciphering the passwords put in place to protect those same products!</p>
+
+<p>I used eBay&rsquo;s advanced search functions to narrow my searches down to just those listings that I thought were most likely to have a photo of the default password sticker on the back of the router. I figured out which models usually had default password stickers, and I only searched for &ldquo;used&rdquo; routers, since new ones would still be in the box where their password isn&rsquo;t visible. That worked really well for a while, but after a day or two, the number of new routers I was seeing started to slow down. <strong>I needed more data!</strong></p>
+
+<p>That&rsquo;s when I had epiphany number two. It finally occurred to me to search eBay&rsquo;s foreign domains: eBay.co.uk, eBay.ca, and eBay.com.au. (I picked English speaking countries so I could still read the pages.) I recorded all the passwords I found and wrote a little Python script to sort them into nouns and adjectives and then merge them all back together to make the WoNDeR-List. The result is the ever-growing password list I present to you today.</p>
+
+<h2 id="how-effective-is-wonder-list">How effective is WoNDeR-List?</h2>
+
+<blockquote>
+<p>&ldquo;Sixty percent of the time it works every time!&rdquo;</p>
+
+<p>&ndash;Brian Fantana, Anchorman</p>
+</blockquote>
+
+<p>At this point, I don&rsquo;t know exactly how effective the list is. I do know that every word used to generate the list is in Netgear&rsquo;s wordlists. In other words, even though every default Netgear password might not (yet) be in the list, <strong>every password in the list is a valid Netgear default password.</strong></p>
+
+<h2 id="how-do-i-know-if-the-wireless-network-i-m-targeting-is-vulnerable">How do I know if the wireless network I&rsquo;m targeting is vulnerable?</h2>
+
+<p>Wireless routers that use these default passwords also have a default network name (or SSID) in the form of NETGEAR##. For example: NETGEAR86. If the person who setup that network is using the default SSID, it stands to reason that they could be using the default wireless key too.</p>
+
+<p>Using the wireless router&rsquo;s MAC address to lookup the vendor is another good tactic here. If the vendor is Netgear, there&rsquo;s still a decent chance that it has one of these default passwords. In fact, that brings me to my real point here&hellip;</p>
+
+<h2 id="what-s-your-point">What&rsquo;s your point?</h2>
+
+<p>The problem with these default passwords is that to the average user, they <strong>look</strong> secure. Most people are going to say, &ldquo;hey, that password is 12 or 15 characters long. No one will ever guess that.&rdquo; So they don&rsquo;t change it. They might even change the SSID, but the password <strong>looks</strong> good, and it&rsquo;s impossible to forget since it&rsquo;s printed right there on the back of the router, so why change it?</p>
+
+<p>Don&rsquo;t get me wrong. I think this was a good move in the right direction by Netgear. By providing a WPA password by default, they&rsquo;re bringing immediate attention to the fact that consumers need to secure their routers, and they&rsquo;re encouraging the move away from WEP. I&rsquo;m just not sure they used a large enough set of data to generate the passwords.</p>
+
+<h2 id="enough-talk-where-are-the-download-links">Enough talk! Where are the download links?</h2>
+
+<p><a href="https://www.dropbox.com/sh/6cy883gyicww8py/AAA3kBSRIjfZRvn2H1BG0xkga" target="_blank">The most recent build of WoNDeR-List is always available here in my Dropbox shared folder.</a></p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Wh1t3Rh1n0</span></span>
+    
+    <time>Jun 16, 2014</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+
+    
+      <a class="basic-alignment right" href="https://wh1t3rh1n0.github.io/blog/2014-07-04-new-version-of-wonder-list-released/" title="New version of WoNDeR-List released!">New version of WoNDeR-List released!</a>
+    
+  </p>
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>Downloads</h1>
+    
+
+    <p>
+      
+        <a href="https://github.com/Wh1t3Rh1n0/air-hammer" target="_blank">Air-Hammer</a><br />
+<a href="https://www.dropbox.com/sh/6cy883gyicww8py/AAA3kBSRIjfZRvn2H1BG0xkga" target="_blank">WoNDeR-List</a><br />
+<a href="/files/Wireless Hacking Cheat Sheet v1.1.pdf">Wireless Cheat-Sheet</a>
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/Wh1t3Rh1n0/" title="https://github.com/Wh1t3Rh1n0/"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/Wh1t3Rh1n0/" title="https://twitter.com/Wh1t3Rh1n0/"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      <a target="_blank" href="https://www.linkedin.com/in/wh1t3rh1n0" title="https://www.linkedin.com/in/wh1t3rh1n0"><i class="fa fa-linkedin fa-3x"></i></a>
+      
+      
+      
+      
+      
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Categories</h1>
+        
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/exploits" title="Exploits" >Exploits</a>
+          </li>
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/full-disk-encryption" title="Full disk encryption" >Full disk encryption</a>
+          </li>
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/wireless" title="Wireless" >Wireless</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019-01-28-bypass-group-policy-to-decrypt-a-bitlocker-encrypted-drive/">Bypass Group Policy to Decrypt a BitLocker-Encrypted Drive</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2017-10-05-how-i-discovered-cve-2017-13707/">How I discovered CVE-2017-13707</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2016-10-06-breaking-into-wpa-enterprise-networks-with-air-hammer/">Breaking into WPA Enterprise networks with Air-Hammer</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2014-07-04-new-version-of-wonder-list-released/">New version of WoNDeR-List released!</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2014-06-16-introducing-wonder-list/">Introducing WoNDeR-List</a>
+              </li>
+            
+          
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019 Wh1t3Rh1n0 - <a href="https://wh1t3rh1n0.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+    
+
+    
+      <script>
+        var _gaq=[['_setAccount','UA-85360780-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
+</html>
+

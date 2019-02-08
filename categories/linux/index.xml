@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Wh1t3Rh1n0</title>
+    <link>https://wh1t3rh1n0.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Wh1t3Rh1n0</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 05 Oct 2017 00:00:01 -0500</lastBuildDate>
+    
+	<atom:link href="https://wh1t3rh1n0.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How I discovered CVE-2017-13707</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2017-10-05-how-i-discovered-cve-2017-13707/</link>
+      <pubDate>Thu, 05 Oct 2017 00:00:01 -0500</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2017-10-05-how-i-discovered-cve-2017-13707/</guid>
+      <description>&lt;p&gt;One of the topics I teach in Coalfire&amp;rsquo;s &lt;a href=&#34;https://www.blackhat.com/us-17/training/adaptive-penetration-testing.html&#34; target=&#34;_blank&#34;&gt;Adaptive Penetration Testing&lt;/a&gt; course, given most recently at Black Hat 2017, is manual privilege escalation on Linux- and Unix-based systems. I also talk about how common it is to gain an initial foothold in an environment by leveraging default or easily guessable login credentials. During a recent red team engagement, I leveraged both of these techniques – not only to fully compromise the organization&amp;rsquo;s Active Directory environment, but also to discover and exploit a previously unknown vulnerability in the Replibit Linux distribution installed on a server on their network.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

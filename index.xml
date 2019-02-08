@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wh1t3Rh1n0</title>
+    <link>https://wh1t3rh1n0.github.io/</link>
+    <description>Recent content on Wh1t3Rh1n0</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:01 -0500</lastBuildDate>
+    
+	<atom:link href="https://wh1t3rh1n0.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bypass Group Policy to Decrypt a BitLocker-Encrypted Drive</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2019-01-28-bypass-group-policy-to-decrypt-a-bitlocker-encrypted-drive/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:01 -0500</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2019-01-28-bypass-group-policy-to-decrypt-a-bitlocker-encrypted-drive/</guid>
+      <description>After gaining physical access to a client location on a recent red team engagement, I found a BitLocker-encrypted laptop along with a PIN and domain credentials necessary to boot Windows and login. While I wanted to leave the laptop in place on site to provide us with a backdoor into the network, I also wanted to clone its hard drive so I could examine the installed software more closely off site.</description>
+    </item>
+    
+    <item>
+      <title>How I discovered CVE-2017-13707</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2017-10-05-how-i-discovered-cve-2017-13707/</link>
+      <pubDate>Thu, 05 Oct 2017 00:00:01 -0500</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2017-10-05-how-i-discovered-cve-2017-13707/</guid>
+      <description>&lt;p&gt;One of the topics I teach in Coalfire&amp;rsquo;s &lt;a href=&#34;https://www.blackhat.com/us-17/training/adaptive-penetration-testing.html&#34; target=&#34;_blank&#34;&gt;Adaptive Penetration Testing&lt;/a&gt; course, given most recently at Black Hat 2017, is manual privilege escalation on Linux- and Unix-based systems. I also talk about how common it is to gain an initial foothold in an environment by leveraging default or easily guessable login credentials. During a recent red team engagement, I leveraged both of these techniques – not only to fully compromise the organization&amp;rsquo;s Active Directory environment, but also to discover and exploit a previously unknown vulnerability in the Replibit Linux distribution installed on a server on their network.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Breaking into WPA Enterprise networks with Air-Hammer</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2016-10-06-breaking-into-wpa-enterprise-networks-with-air-hammer/</link>
+      <pubDate>Thu, 06 Oct 2016 22:01:41 -0400</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2016-10-06-breaking-into-wpa-enterprise-networks-with-air-hammer/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/Wh1t3Rh1n0/air-hammer/&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;Air-Hammer&lt;/strong&gt;&lt;/a&gt; is a new tool I&amp;rsquo;ve created for performing online, &lt;a href=&#34;https://en.m.wikipedia.org/wiki/Brute-force_attack#Reverse_brute-force_attack&#34; target=&#34;_blank&#34;&gt;horizontal brute-force&lt;/a&gt; attacks against wireless networks secured with WPA Enterprise. This is a completely different attack than the usual &amp;ldquo;&lt;a href=&#34;https://en.wikipedia.org/wiki/Evil_twin_%28wireless_networks%29&#34; target=&#34;_blank&#34;&gt;evil twin&lt;/a&gt;&amp;rdquo; attacks against those networks.&lt;/p&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Online brute-force attacks against WPA Enterprise appear to be overlooked, if not unheard of, in the current literature on wireless network security and in the security community in general. Although WPA Enterprise is often considered &amp;ldquo;more secure&amp;rdquo; than WPA-PSK, it also has a much larger attack surface. While WPA-PSK networks have only one valid password, there may be thousands of valid username and password combinations which grant access to a single WPA Enterprise network. Further, passwords used to access WPA Enterprise networks are commonly selected by end users, many of whom select &lt;strong&gt;extremely common passwords&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this post I&amp;rsquo;ll describe using &lt;a href=&#34;https://github.com/Wh1t3Rh1n0/air-hammer/&#34; target=&#34;_blank&#34;&gt;Air-Hammer&lt;/a&gt; to leverage open-source intelligence (OSINT) and perform brute-force attacks against WPA Enterprise networks.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>New version of WoNDeR-List released!</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2014-07-04-new-version-of-wonder-list-released/</link>
+      <pubDate>Fri, 04 Jul 2014 05:48:49 -0400</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2014-07-04-new-version-of-wonder-list-released/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m happy to announce the newest version of WoNDer-List is now available for download! This version adds approximately 1.22 million more valid default WPA keys for the Netgear WNDR series of wireless routers.&lt;/p&gt;
+
+&lt;p&gt;You can download the newest version from the &lt;a href=&#34;https://www.dropbox.com/sh/6cy883gyicww8py/AAA3kBSRIjfZRvn2H1BG0xkga&#34; target=&#34;_blank&#34;&gt;WoNDeR-List folder in my Dropbox, here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For my original write-up that explains WoNDeR-List, check out &lt;a href=&#34;https://wh1t3rh1n0.github.io/blog/2014-06-16-introducing-wonder-list/&#34;&gt;this article.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Introducing WoNDeR-List</title>
+      <link>https://wh1t3rh1n0.github.io/blog/2014-06-16-introducing-wonder-list/</link>
+      <pubDate>Mon, 16 Jun 2014 16:11:45 -0400</pubDate>
+      
+      <guid>https://wh1t3rh1n0.github.io/blog/2014-06-16-introducing-wonder-list/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;TLDR:&lt;/strong&gt; Wordlist of Netgear default WPA keys. Download link is at the bottom.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-wonder-list&#34;&gt;What is WoNDeR-List?&lt;/h2&gt;
+
+&lt;p&gt;WoNDeR-List is the wordlist I created to crack the default WPA keys of several models of Netgear wireless routers.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-does-it-work&#34;&gt;How does it work?&lt;/h2&gt;
+
+&lt;p&gt;Some Netgear WNDR series routers (including the N900, N750, and N600) come with a factory-set default WPA key in the form of: adjective&lt;strong&gt;noun&lt;/strong&gt;###. For example, quiet&lt;strong&gt;unicorn&lt;/strong&gt;604 (bold added for clarity). After seeing a few of these I was able to make a few assumptions:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

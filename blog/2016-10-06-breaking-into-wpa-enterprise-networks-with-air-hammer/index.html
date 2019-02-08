@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Breaking into WPA Enterprise networks with Air-Hammer</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+    <link rel="stylesheet" href="https://wh1t3rh1n0.github.io/css/code-blocks.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://wh1t3rh1n0.github.io/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Wh1t3Rh1n0">
+
+  
+  <meta name="generator" content="Hugo 0.40.1" />
+
+  
+  
+
+  
+  
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://wh1t3rh1n0.github.io/">Wh1t3Rh1n0</a></h1>
+    <h2>I will find a way, or I will make one.</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://wh1t3rh1n0.github.io/">» Blog</option>
+      
+        <option value="https://www.github.com/Wh1t3Rh1n0">» Github</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://wh1t3rh1n0.github.io/" title="Blog">Blog</a></li>
+    
+  
+    
+      <li><a href="https://www.github.com/Wh1t3Rh1n0" title="Github"  target="_blank" >Github</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://wh1t3rh1n0.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.google.com/search" method="get" target="_blank">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:https://wh1t3rh1n0.github.io/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Oct 6, 2016
+    
+    
+
+    
+    
+      - <a class="label" href="https://wh1t3rh1n0.github.io/categories/wireless/">wireless </a>
+    
+  </p>
+  <h1 class="entry-title">
+     Breaking into WPA Enterprise networks with Air-Hammer 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank"><strong>Air-Hammer</strong></a> is a new tool I&rsquo;ve created for performing online, <a href="https://en.m.wikipedia.org/wiki/Brute-force_attack#Reverse_brute-force_attack" target="_blank">horizontal brute-force</a> attacks against wireless networks secured with WPA Enterprise. This is a completely different attack than the usual &ldquo;<a href="https://en.wikipedia.org/wiki/Evil_twin_%28wireless_networks%29" target="_blank">evil twin</a>&rdquo; attacks against those networks.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Online brute-force attacks against WPA Enterprise appear to be overlooked, if not unheard of, in the current literature on wireless network security and in the security community in general. Although WPA Enterprise is often considered &ldquo;more secure&rdquo; than WPA-PSK, it also has a much larger attack surface. While WPA-PSK networks have only one valid password, there may be thousands of valid username and password combinations which grant access to a single WPA Enterprise network. Further, passwords used to access WPA Enterprise networks are commonly selected by end users, many of whom select <strong>extremely common passwords</strong>.</p>
+
+<p>In this post I&rsquo;ll describe using <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> to leverage open-source intelligence (OSINT) and perform brute-force attacks against WPA Enterprise networks.</p>
+
+<p></p>
+
+<h2 id="how-air-hammer-works">How Air-Hammer Works</h2>
+
+<p><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> requires a minimum of the following parameters for a given attack:</p>
+
+<ul>
+<li>The wireless interface to be used</li>
+<li>The network name (SSID) of the wireless network to be targeted</li>
+<li>A list of usernames to be targeted</li>
+<li>A password or list of passwords to be tested for each username</li>
+</ul>
+
+<pre><code>root@kali:~# ./air-hammer.py -h
+usage: ./air-hammer.py -i interface -e SSID -u USERFILE [-P PASSWORD]
+                     [-p PASSFILE] [-s line] [-w OUTFILE] [-1] [-t seconds]
+...
+</code></pre>
+
+<p><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> then attempts to authenticate to the target network by trying the given password with each username in the list. If more than one password is provided, every username is attempted with the first password before moving on to the next password. (For more information on the &ldquo;horizontal brute-force&rdquo; or &ldquo;reverse brute-force&rdquo; technique, see the Wikipedia article <a href="https://en.m.wikipedia.org/wiki/Brute-force_attack#Reverse_brute-force_attack" target="_blank">here</a>.)</p>
+
+<p>Iterating over the usernames instead of the passwords is advantageous because:</p>
+
+<ol>
+<li>There is a much higher likelihood that we can guess the password of <em>at least one, out of all</em> the users in the organization than the likelihood that we can guess the password of a <em>single, specific</em> user in the organization.</li>
+<li>Due to account lockout policies commonly in place, it is possible to make many times as many login attempts within a given timeframe by spreading them across multiple user accounts.</li>
+</ol>
+
+<p>After a valid set of credentials is discovered, the username and password are displayed on screen. Depending on the parameters used, the credentials can optionally be saved to an output file, and the attack can either be terminated on the first success or allowed to continue.</p>
+
+<pre><code>root@kali:~# ./air-hammer.py -i wlan0 -e Test-Network -u usernames.txt -P UserPassword1 -1
+[0]  Trying alice:UserPassword1...
+[1]  Trying bob:UserPassword1...
+[2]  Trying charlotte:UserPassword1...
+[3]  Trying dave:UserPassword1...
+[4]  Trying wifiuser:UserPassword1...
+[!] VALID CREDENTIALS: wifiuser:UserPassword1
+DONE!
+</code></pre>
+
+<p><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> can also resume from a cancelled or failed attack by using the &ldquo;-s&rdquo; flag to specify the username numer on the left side of the output.</p>
+
+<pre><code>root@kali:~# ./air-hammer.py -i wlan0 -e Test-Network -u usernames.txt -P UserPassword1 -1 -s 3
+[3]  Trying dave:UserPassword1...
+[4]  Trying wifiuser:UserPassword1...
+[!] VALID CREDENTIALS: wifiuser:UserPassword1
+DONE!
+</code></pre>
+
+<p><a name="attack-chain"></a></p>
+
+<h2 id="typical-attack-chain">Typical Attack Chain</h2>
+
+<p>The typical attack chain for attacks conducted with <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> is as follows:</p>
+
+<ol>
+<li><strong>Identify the target network and the authentication mechanism in use.</strong>
+
+<ul>
+<li>The current version of <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> only supports PEAP/MSCHAPv2. Additional authentication mechanisms will be added in future versions.</li>
+</ul></li>
+<li><strong>Generate a list of usernames for use in the attack.</strong>
+
+<ul>
+<li>Identify the username format used by the organization. Possible sources include:
+
+<ul>
+<li><a href="http://www.blackhillsinfosec.com/?p=4694" target="_blank">Usernames stored within the metadata of files available on the company website.</a></li>
+<li>The first half of corporate email addresses. (The part before the &ldquo;@&rdquo;.)</li>
+<li>Usernames captured during an &ldquo;evil twin&rdquo; attack of the target network.</li>
+</ul></li>
+<li>Make a list of the first and last names of as many of the organization&rsquo;s employees as you can. Possible sources:
+
+<ul>
+<li>The organization&rsquo;s website or company directory</li>
+<li><a href="https://connect.data.com" target="_blank">Data.com</a></li>
+<li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
+</ul></li>
+<li>Using the information gained from the steps above, generate a list of potential usernames.</li>
+</ul></li>
+<li><strong>Use <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> to discover valid credentials.</strong></li>
+<li><strong>Use discovered credentials to access the wireless network.</strong>
+
+<ul>
+<li>Since WPA Enterprise credentials are often Domain User credentials, use the discovered credentials to access additional systems on the internal network and begin additional attacks.</li>
+</ul></li>
+</ol>
+
+<h2 id="pros-and-cons">Pros and Cons</h2>
+
+<p>Listed below are a number of advantages and disadvantages of the online brute-force attack as compared with typical &ldquo;<a href="https://en.wikipedia.org/wiki/Evil_twin_%28wireless_networks%29" target="_blank">evil twin</a>&rdquo; attacks. Given the various pros and cons of each, <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> aims to serve as an addition to current wireless penetration testing tools rather than a replacement for them.</p>
+
+<h3 id="advantages">Advantages</h3>
+
+<ul>
+<li><strong>Client-less attacks</strong>
+
+<ul>
+<li>In evil twin attacks, client devices are attacked and must be present and in range of the attacker in order to discover credentials.</li>
+<li>By contrast, during brute-force attacks with <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a>, client devices are never targeted, and the network can be attacked even if clients are not present, out of range, or out of scope. This is ideal for penetration tests conducted after hours, outside the building, or at locations where very few wireless devices are in use.</li>
+</ul></li>
+<li><strong>Potentially larger attack surface</strong>
+
+<ul>
+<li>Because evil twin attacks can only target client devices within range, the attack surface they can target is limited to the user credentials supplied by those devices. This is usually about one set of login credentials per client device.</li>
+<li><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> can target as many user accounts as you provide - potentially every account in the organization.<br /></li>
+</ul></li>
+<li><strong>Minimal hardware requirements</strong>
+
+<ul>
+<li>Evil twin attacks usually require either a wireless interface that supports access point mode or an actual wireless access point. Then they also require the configuration of additional tools such as hostapd-wpe.</li>
+<li><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> is compatible with any wireless adapter that can be configured by wpa-supplicant. If additional wireless adapters are available during the test but are not being used due to incompatibility with other tools, running a brute-force attack with <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> is an excellent way they can be put to use.</li>
+</ul></li>
+<li><strong>No hash cracking required</strong>
+
+<ul>
+<li><a href="https://github.com/OpenSecurityResearch/hostapd-wpe" target="_blank">PEAP/MSCHAPv2</a> is by far the most common authentication mechanism I have encountered during pentests on WPA Enterprise networks. During evil twin attacks, client devices transmit a hash of the user&rsquo;s password. This means that even after a client has provided their credentials, <em>those credentials still have to be cracked offline</em>.</li>
+<li>Credentials discovered with <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a>, on the other hand, are immediately available in cleartext. This is especially useful since client crendentials often correspond to Domain User accounts and can be used right away to gain access to other systems inside the network.</li>
+</ul></li>
+</ul>
+
+<h3 id="disadvantages">Disadvantages</h3>
+
+<ul>
+<li><strong>It&rsquo;s slow</strong>
+
+<ul>
+<li>At present, <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> takes between one and five seconds per login attempt. This may improve in future versions, but online brute-force attacks will always be extremely slow compared to offline password-cracking attacks.</li>
+</ul></li>
+<li><strong>It&rsquo;s noisy</strong>
+
+<ul>
+<li>Evil twin attacks are relatively passive and potentially much more difficult to detect by the administrator of the target network. Any detection is most likely to happen on client devices in the event that users receive a prompt when connecting to the attacker&rsquo;s network.</li>
+<li>The horizontal brute-force attack is an active attack that will generate plenty of &ldquo;invalid password&rdquo; errors on the target network. The potential for locking out user accounts is minimized by cycling through usernames before passwords, but if sufficient delays are not set between password attempts on the same user account, that is also a possibility.</li>
+</ul></li>
+<li><strong>A list of usernames is required</strong>
+
+<ul>
+<li><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> relies on a list of valid usernames to make the attack work. This can usually be created through the use of <a href="#attack-chain">various OSINT sources</a> on the Internet.</li>
+</ul></li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>WPA Enterprise is an excellent solution for granting and revoking users&rsquo; access to an organization&rsquo;s wireless network. However, it&rsquo;s likely that passwords selected by those users then become the weakest link in the security of your wireless network. At a bare minimum, organizations should enforce a password policy across all user accounts that prevents users from setting weak or common passwords.</p>
+
+<p><strong><em><a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">Air-Hammer</a> is available on my GitHub page <a href="https://github.com/Wh1t3Rh1n0/air-hammer/" target="_blank">here</a></em></strong>.</p>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Wh1t3Rh1n0</span></span>
+    
+    <time>Oct 6, 2016</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://wh1t3rh1n0.github.io/blog/2014-07-04-new-version-of-wonder-list-released/" title="New version of WoNDeR-List released!">New version of WoNDeR-List released!</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://wh1t3rh1n0.github.io/blog/2017-10-05-how-i-discovered-cve-2017-13707/" title="How I discovered CVE-2017-13707">How I discovered CVE-2017-13707</a>
+    
+  </p>
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>Downloads</h1>
+    
+
+    <p>
+      
+        <a href="https://github.com/Wh1t3Rh1n0/air-hammer" target="_blank">Air-Hammer</a><br />
+<a href="https://www.dropbox.com/sh/6cy883gyicww8py/AAA3kBSRIjfZRvn2H1BG0xkga" target="_blank">WoNDeR-List</a><br />
+<a href="/files/Wireless Hacking Cheat Sheet v1.1.pdf">Wireless Cheat-Sheet</a>
+      
+    </p>
+  </section>
+
+
+
+  
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+      <a target="_blank" href="https://github.com/Wh1t3Rh1n0/" title="https://github.com/Wh1t3Rh1n0/"><i class="fa fa-github fa-3x"></i></a>
+      
+      
+      <a target="_blank" href="https://twitter.com/Wh1t3Rh1n0/" title="https://twitter.com/Wh1t3Rh1n0/"><i class="fa fa-twitter fa-3x"></i></a>
+      
+         
+      
+      <a target="_blank" href="https://www.linkedin.com/in/wh1t3rh1n0" title="https://www.linkedin.com/in/wh1t3rh1n0"><i class="fa fa-linkedin fa-3x"></i></a>
+      
+      
+      
+      
+      
+      
+
+    
+    
+    </li>
+  </ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Categories</h1>
+        
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/exploits" title="Exploits" >Exploits</a>
+          </li>
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/full-disk-encryption" title="Full disk encryption" >Full disk encryption</a>
+          </li>
+        
+          <li>
+            <a href="https://wh1t3rh1n0.github.io/categories/wireless" title="Wireless" >Wireless</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="/blog/2019-01-28-bypass-group-policy-to-decrypt-a-bitlocker-encrypted-drive/">Bypass Group Policy to Decrypt a BitLocker-Encrypted Drive</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2017-10-05-how-i-discovered-cve-2017-13707/">How I discovered CVE-2017-13707</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2016-10-06-breaking-into-wpa-enterprise-networks-with-air-hammer/">Breaking into WPA Enterprise networks with Air-Hammer</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2014-07-04-new-version-of-wonder-list-released/">New version of WoNDeR-List released!</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2014-06-16-introducing-wonder-list/">Introducing WoNDeR-List</a>
+              </li>
+            
+          
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2019 Wh1t3Rh1n0 - <a href="https://wh1t3rh1n0.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+    
+
+    
+      <script>
+        var _gaq=[['_setAccount','UA-85360780-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+    
+  </body>
+</html>
+
